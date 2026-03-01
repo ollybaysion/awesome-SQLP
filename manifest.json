@@ -150,16 +150,6 @@
                 "ROWID",
                 "기본원리"
               ]
-            },
-            {
-              "id": "index-scan-types",
-              "title": "인덱스 스캔 방식",
-              "file": "content/04-index-tuning/01-index-basics/05-index-scan-types.md",
-              "tags": [
-                "인덱스",
-                "스캔방식",
-                "기본원리"
-              ]
             }
           ]
         },
@@ -175,6 +165,22 @@
                 "인덱스",
                 "튜닝",
                 "랜덤액세스"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "scan-efficiency",
+          "title": "3. 인덱스 스캔 효율화",
+          "topics": [
+            {
+              "id": "index-scan-types",
+              "title": "인덱스 스캔 방식",
+              "file": "content/04-index-tuning/03-scan-efficiency/01-index-scan-types.md",
+              "tags": [
+                "인덱스",
+                "튜닝",
+                "스캔방식"
               ]
             }
           ]
