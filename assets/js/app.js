@@ -326,6 +326,17 @@ function parseTags(tagStr) {
 }
 
 // ── Markdown render ────────────────────────────────────
+
+// Custom marked renderer: mermaid 블록 소스를 data attribute에 인코딩하여 보존
+const mermaidRenderer = new marked.Renderer();
+mermaidRenderer.code = function(code, language) {
+  if (language === 'mermaid') {
+    return `<div class="mermaid-source" data-src="${encodeURIComponent(code)}"></div>`;
+  }
+  return false; // 나머지는 기본 렌더러 사용
+};
+marked.use({ renderer: mermaidRenderer });
+
 function renderMarkdown(content, subjectTitle, topicTitle, tags, hash) {
   // Breadcrumb
   document.getElementById('breadcrumb').innerHTML =
@@ -336,12 +347,12 @@ function renderMarkdown(content, subjectTitle, topicTitle, tags, hash) {
     ? `<div class="topic-tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`
     : '';
 
-  // Render markdown
+  // Render markdown (mermaid 블록은 .mermaid-source div로 치환됨)
   const html = marked.parse(content);
   document.getElementById('markdownBody').innerHTML = tagsHtml + html;
 
-  // Apply highlight.js to non-mermaid code blocks
-  document.querySelectorAll('.markdown-body pre code:not(.language-mermaid)').forEach(block => {
+  // Apply highlight.js to code blocks
+  document.querySelectorAll('.markdown-body pre code').forEach(block => {
     hljs.highlightElement(block);
   });
 
@@ -350,7 +361,7 @@ function renderMarkdown(content, subjectTitle, topicTitle, tags, hash) {
 }
 
 async function renderMermaid() {
-  const blocks = document.querySelectorAll('.markdown-body pre code.language-mermaid');
+  const blocks = document.querySelectorAll('.markdown-body .mermaid-source');
   if (!blocks.length) return;
 
   // mermaid may load asynchronously via ESM module
@@ -364,15 +375,15 @@ async function renderMermaid() {
   const m = await getMermaid();
 
   for (const block of blocks) {
-    const pre = block.parentElement;
-    const code = block.textContent;
+    // data attribute에서 원본 소스 복원 (개행 등 완전히 보존됨)
+    const code = decodeURIComponent(block.dataset.src);
     const id = 'mermaid-' + Math.random().toString(36).slice(2);
     try {
       const { svg } = await m.render(id, code);
       const wrapper = document.createElement('div');
       wrapper.className = 'mermaid-diagram';
       wrapper.innerHTML = svg;
-      pre.replaceWith(wrapper);
+      block.replaceWith(wrapper);
     } catch (e) {
       console.warn('Mermaid render error:', e);
     }
