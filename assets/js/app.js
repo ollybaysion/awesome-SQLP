@@ -327,15 +327,19 @@ function parseTags(tagStr) {
 
 // ── Markdown render ────────────────────────────────────
 
-// Custom marked renderer: mermaid 블록 소스를 data attribute에 인코딩하여 보존
+// Custom marked renderer: mermaid 블록 소스를 hidden div의 textContent로 보존
 // marked.js v9+: code renderer는 { text, lang } 객체를 받음
 marked.use({
   renderer: {
     code({ text, lang }) {
       if (lang === 'mermaid') {
-        return `<div class="mermaid-source" data-src="${encodeURIComponent(text)}"></div>`;
+        const escaped = text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        return `<div class="mermaid-source" style="display:none">${escaped}</div>`;
       }
-      return false; // 나머지는 기본 렌더러 사용
+      return false;
     }
   }
 });
@@ -378,8 +382,8 @@ async function renderMermaid() {
   const m = await getMermaid();
 
   for (const block of blocks) {
-    // data attribute에서 원본 소스 복원 (개행 등 완전히 보존됨)
-    const code = decodeURIComponent(block.dataset.src);
+    // textContent로 읽으면 HTML 엔티티 자동 디코딩 + 개행 완전 보존
+    const code = block.textContent;
     const id = 'mermaid-' + Math.random().toString(36).slice(2);
     try {
       const { svg } = await m.render(id, code);
