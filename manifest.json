@@ -130,6 +130,16 @@
                 "DML",
                 "기본원리"
               ]
+            },
+            {
+              "id": "btree-search-example",
+              "title": "B-Tree 인덱스 탐색 예시",
+              "file": "content/04-index-tuning/01-index-basics/03-btree-search-example.md",
+              "tags": [
+                "인덱스",
+                "B-Tree",
+                "탐색원리"
+              ]
             }
           ]
         },
