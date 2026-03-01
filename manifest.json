@@ -9,19 +9,28 @@
           "id": "entity",
           "title": "엔터티(Entity)",
           "file": "content/01-data-modeling/01-entity.md",
-          "tags": ["핵심개념", "모델링"]
+          "tags": [
+            "핵심개념",
+            "모델링"
+          ]
         },
         {
           "id": "attribute",
           "title": "속성(Attribute)",
           "file": "content/01-data-modeling/02-attribute.md",
-          "tags": ["핵심개념", "모델링"]
+          "tags": [
+            "핵심개념",
+            "모델링"
+          ]
         },
         {
           "id": "relationship",
           "title": "관계(Relationship)",
           "file": "content/01-data-modeling/03-relationship.md",
-          "tags": ["핵심개념", "모델링"]
+          "tags": [
+            "핵심개념",
+            "모델링"
+          ]
         }
       ]
     },
@@ -34,13 +43,19 @@
           "id": "select",
           "title": "SELECT 문",
           "file": "content/02-sql-basic/01-select.md",
-          "tags": ["SQL기본", "DML"]
+          "tags": [
+            "SQL기본",
+            "DML"
+          ]
         },
         {
           "id": "join",
           "title": "JOIN",
           "file": "content/02-sql-basic/02-join.md",
-          "tags": ["SQL기본", "조인"]
+          "tags": [
+            "SQL기본",
+            "조인"
+          ]
         }
       ]
     },
@@ -53,13 +68,19 @@
           "id": "index",
           "title": "인덱스(Index)",
           "file": "content/03-sql-advanced/01-index.md",
-          "tags": ["튜닝", "인덱스"]
+          "tags": [
+            "튜닝",
+            "인덱스"
+          ]
         },
         {
           "id": "optimizer",
           "title": "옵티마이저",
           "file": "content/03-sql-advanced/02-optimizer.md",
-          "tags": ["튜닝", "옵티마이저"]
+          "tags": [
+            "튜닝",
+            "옵티마이저"
+          ]
         }
       ]
     }
