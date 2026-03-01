@@ -463,6 +463,7 @@
                 "INSERT",
                 "UPDATE",
                 "DELETE",
+                "인덱스부하",
                 "DirectPathWrite"
               ]
             }
