@@ -6,22 +6,32 @@ tags: [가이드]
 
 새로운 개념을 대시보드에 추가하는 방법입니다.
 
-## 1단계: 마크다운 파일 작성
-
-해당 과목 폴더에 파일을 추가합니다.
+## 폴더 구조 (3단계)
 
 ```
 content/
-├── 01-data-modeling/   ← 1과목 파일 추가
-├── 02-sql-basic/       ← 2과목 파일 추가
-└── 03-sql-advanced/    ← 3과목 파일 추가
+├── 01-data-modeling/          ← 과목 폴더
+│   └── 01-er-basics/          ← 챕터 폴더
+│       ├── 01-entity.md
+│       └── 02-attribute.md
+├── 02-sql-basic/
+│   └── 01-basics/
+│       ├── 01-select.md
+│       └── 02-join.md
+└── 03-sql-advanced/
+    └── 01-indexing/
+        ├── 01-index.md
+        └── 02-optimizer.md
 ```
+
+## 1단계: 마크다운 파일 작성
+
+해당 과목/챕터 폴더에 파일을 추가합니다.
 
 **파일명 규칙**: `번호-영문이름.md`
 
 ```
-03-identifier.md    ← 1과목 세 번째 토픽
-03-subquery.md      ← 2과목 세 번째 토픽
+03-subquery.md      ← 챕터의 세 번째 토픽
 ```
 
 숫자 접두사가 사이드바 표시 순서를 결정합니다.
@@ -32,11 +42,11 @@ content/
 
 ```markdown
 ---
-title: 식별자(Identifier)
-tags: [핵심개념, 모델링]
+title: 서브쿼리(Subquery)
+tags: [SQL기본, 서브쿼리]
 ---
 
-# 식별자(Identifier)
+# 서브쿼리(Subquery)
 
 본문 내용...
 ```
@@ -49,7 +59,7 @@ tags: [핵심개념, 모델링]
 ## 3단계: Push
 
 ```bash
-git add content/02-sql-basic/03-subquery.md
+git add content/02-sql-basic/01-basics/03-subquery.md
 git commit -m "docs: 서브쿼리 내용 추가"
 git push
 ```
@@ -59,6 +69,22 @@ push 하면 GitHub Action이 자동으로:
 2. GitHub Pages 재배포
 
 약 1~2분 후 사이드바에 새 토픽이 나타납니다.
+
+## 새 챕터 추가
+
+기존 과목에 챕터를 추가하려면:
+
+**1. 챕터 폴더 생성**: `content/02-sql-basic/02-advanced/`
+
+**2. `_chapter.json` 작성** (선택, 없으면 폴더명이 제목):
+
+```json
+{
+  "title": "고급 SQL"
+}
+```
+
+**3. MD 파일 추가 후 push** → 자동 반영
 
 ## 새 과목 추가
 
@@ -75,7 +101,7 @@ push 하면 GitHub Action이 자동으로:
 }
 ```
 
-**3. MD 파일 추가 후 push** → 자동 반영
+**3. 챕터 폴더와 MD 파일 추가 후 push** → 자동 반영
 
 ## 마크다운 작성 팁
 

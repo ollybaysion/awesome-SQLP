@@ -4,7 +4,7 @@
 const state = {
   manifest: null,
   currentHash: null,
-  progress: {},       // { "subject-id/topic-id": true }
+  progress: {},       // { "subject-id/chapter-id/topic-id": true }
   allTopics: [],      // flat list for prev/next navigation
 };
 
@@ -37,16 +37,19 @@ async function loadManifest() {
 function buildFlatTopicList() {
   state.allTopics = [];
   // exam topics (fixed)
-  state.allTopics.push({ subjectId: 'exam', topicId: 'overview', hash: 'exam/overview' });
-  state.allTopics.push({ subjectId: 'exam', topicId: 'grading',  hash: 'exam/grading' });
+  state.allTopics.push({ subjectId: 'exam', chapterId: null, topicId: 'overview', hash: 'exam/overview' });
+  state.allTopics.push({ subjectId: 'exam', chapterId: null, topicId: 'grading',  hash: 'exam/grading' });
 
   for (const subject of state.manifest.subjects) {
-    for (const topic of subject.topics) {
-      state.allTopics.push({
-        subjectId: subject.id,
-        topicId: topic.id,
-        hash: `${subject.id}/${topic.id}`,
-      });
+    for (const chapter of subject.chapters) {
+      for (const topic of chapter.topics) {
+        state.allTopics.push({
+          subjectId: subject.id,
+          chapterId: chapter.id,
+          topicId: topic.id,
+          hash: `${subject.id}/${chapter.id}/${topic.id}`,
+        });
+      }
     }
   }
 }
@@ -57,14 +60,15 @@ function renderSidebar() {
   container.innerHTML = '';
 
   for (const subject of state.manifest.subjects) {
-    const completed = subject.topics.filter(t =>
-      state.progress[`${subject.id}/${t.id}`]
-    ).length;
-    const total = subject.topics.length;
+    const { completed, total } = countSubjectProgress(subject);
 
     const section = document.createElement('div');
     section.className = 'nav-section';
     section.dataset.section = subject.id;
+
+    const chaptersHtml = subject.chapters.map(chapter =>
+      renderChapter(subject, chapter)
+    ).join('');
 
     section.innerHTML = `
       <button class="nav-section-header" onclick="toggleSection('${subject.id}')">
@@ -76,7 +80,7 @@ function renderSidebar() {
         </svg>
       </button>
       <div class="nav-section-body" id="section-body-${subject.id}">
-        ${subject.topics.map(topic => renderNavItem(subject.id, topic)).join('')}
+        ${chaptersHtml}
       </div>
     `;
 
@@ -84,8 +88,47 @@ function renderSidebar() {
   }
 }
 
-function renderNavItem(subjectId, topic) {
-  const hash = `${subjectId}/${topic.id}`;
+function countSubjectProgress(subject) {
+  let completed = 0;
+  let total = 0;
+  for (const chapter of subject.chapters) {
+    for (const topic of chapter.topics) {
+      total++;
+      if (state.progress[`${subject.id}/${chapter.id}/${topic.id}`]) completed++;
+    }
+  }
+  return { completed, total };
+}
+
+function renderChapter(subject, chapter) {
+  const chapterKey = `${subject.id}/${chapter.id}`;
+  const done = chapter.topics.filter(t =>
+    state.progress[`${subject.id}/${chapter.id}/${t.id}`]
+  ).length;
+  const total = chapter.topics.length;
+
+  const topicsHtml = chapter.topics.map(topic =>
+    renderNavItem(subject.id, chapter.id, topic)
+  ).join('');
+
+  return `
+    <div class="nav-chapter" data-chapter="${chapterKey}">
+      <button class="nav-chapter-header" onclick="toggleChapter('${subject.id}', '${chapter.id}')">
+        <svg class="chevron-sm" width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+        </svg>
+        <span class="chapter-title">${chapter.title}</span>
+        <span class="chapter-progress">${done}/${total}</span>
+      </button>
+      <div class="nav-chapter-body" id="chapter-body-${subject.id}-${chapter.id}">
+        ${topicsHtml}
+      </div>
+    </div>
+  `;
+}
+
+function renderNavItem(subjectId, chapterId, topic) {
+  const hash = `${subjectId}/${chapterId}/${topic.id}`;
   const done = state.progress[hash];
   return `
     <a class="nav-item${done ? ' completed' : ''}"
@@ -103,6 +146,11 @@ function toggleSection(sectionId) {
   if (section) section.classList.toggle('collapsed');
 }
 
+function toggleChapter(subjectId, chapterId) {
+  const chapter = document.querySelector(`.nav-chapter[data-chapter="${subjectId}/${chapterId}"]`);
+  if (chapter) chapter.classList.toggle('collapsed');
+}
+
 // ── Home cards ─────────────────────────────────────────
 function renderHomeCards() {
   const statsEl = document.getElementById('homeStats');
@@ -112,14 +160,18 @@ function renderHomeCards() {
   let totalDone = (state.progress['exam/overview'] ? 1 : 0) + (state.progress['exam/grading'] ? 1 : 0);
 
   const cards = state.manifest.subjects.map(subject => {
-    const done = subject.topics.filter(t => state.progress[`${subject.id}/${t.id}`]).length;
-    const total = subject.topics.length;
+    const { completed: done, total } = countSubjectProgress(subject);
     totalTopics += total;
     totalDone += done;
     const pct = total ? Math.round(done / total * 100) : 0;
+    const firstChapter = subject.chapters[0];
+    const firstTopic = firstChapter?.topics[0];
+    const firstHash = firstChapter && firstTopic
+      ? `${subject.id}/${firstChapter.id}/${firstTopic.id}`
+      : '';
     return `
       <div class="subject-card" style="--accent:${subject.color}"
-           onclick="window.location.hash='${subject.id}/${subject.topics[0]?.id || ''}'">
+           onclick="window.location.hash='${firstHash}'">
         <div class="subject-card-title">${subject.title}</div>
         <div class="subject-card-count">${done} / ${total} 완료</div>
         <div class="subject-card-bar">
@@ -185,31 +237,39 @@ function setActiveNavItem(hash) {
 
 // ── Content loading ────────────────────────────────────
 async function loadContent(hash) {
-  const [subjectId, topicId] = hash.split('/');
-  if (!subjectId || !topicId) { showHome(); return; }
+  const parts = hash.split('/');
+  if (parts.length < 2) { showHome(); return; }
 
-  // Determine file path
+  const [subjectId, part2, part3] = parts;
+
+  // Determine file path and metadata
   let filePath = null;
   let subjectTitle = '시험 정보';
-  let topicTitle = topicId;
+  let topicTitle = part2;
   let topicTags = [];
 
   if (subjectId === 'exam') {
-    filePath = `content/exam/${topicId}.md`;
-    topicTitle = topicId === 'overview' ? '시험 개요' : '채점 기준';
+    // 2-part: exam/overview or exam/grading
+    filePath = `content/exam/${part2}.md`;
+    topicTitle = part2 === 'overview' ? '시험 개요' : '채점 기준';
   } else if (subjectId === 'guide') {
-    filePath = `content/guide/${topicId}.md`;
+    // 2-part: guide/how-to-add
+    filePath = `content/guide/${part2}.md`;
     subjectTitle = '가이드';
     topicTitle = '토픽 추가 가이드';
-  } else if (state.manifest) {
+  } else if (state.manifest && part3) {
+    // 3-part: subject/chapter/topic
     const subject = state.manifest.subjects.find(s => s.id === subjectId);
     if (subject) {
       subjectTitle = subject.title;
-      const topic = subject.topics.find(t => t.id === topicId);
-      if (topic) {
-        filePath = topic.file;
-        topicTitle = topic.title;
-        topicTags = topic.tags || [];
+      const chapter = subject.chapters.find(c => c.id === part2);
+      if (chapter) {
+        const topic = chapter.topics.find(t => t.id === part3);
+        if (topic) {
+          filePath = topic.file;
+          topicTitle = topic.title;
+          topicTags = topic.tags || [];
+        }
       }
     }
   }
@@ -276,11 +336,11 @@ function renderMarkdown(content, subjectTitle, topicTitle, tags, hash) {
     ? `<div class="topic-tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`
     : '';
 
-  // Render markdown (highlight.js applied below via hljs.highlightElement)
+  // Render markdown
   const html = marked.parse(content);
   document.getElementById('markdownBody').innerHTML = tagsHtml + html;
 
-  // Re-apply highlight.js to any missed code blocks
+  // Apply highlight.js to code blocks
   document.querySelectorAll('.markdown-body pre code').forEach(block => {
     hljs.highlightElement(block);
   });
@@ -322,7 +382,8 @@ function getTopicTitle(topicRef) {
     return topicRef.topicId === 'overview' ? '시험 개요' : '채점 기준';
   }
   const subject = state.manifest?.subjects.find(s => s.id === topicRef.subjectId);
-  const topic = subject?.topics.find(t => t.id === topicRef.topicId);
+  const chapter = subject?.chapters.find(c => c.id === topicRef.chapterId);
+  const topic = chapter?.topics.find(t => t.id === topicRef.topicId);
   return topic?.title || topicRef.topicId;
 }
 
@@ -364,7 +425,7 @@ function toggleComplete() {
     item.classList.toggle('completed', done);
     item.querySelector('.nav-item-check').textContent = done ? '✅' : '⬜';
   }
-  // Update section progress counts
+  // Update section and chapter progress counts
   updateSectionProgress();
   updateGlobalProgress();
 }
@@ -372,10 +433,24 @@ function toggleComplete() {
 function updateSectionProgress() {
   if (!state.manifest) return;
   for (const subject of state.manifest.subjects) {
+    // Update subject-level progress count
     const header = document.querySelector(`.nav-section[data-section="${subject.id}"] .section-progress`);
-    if (!header) continue;
-    const done = subject.topics.filter(t => state.progress[`${subject.id}/${t.id}`]).length;
-    header.textContent = `${done}/${subject.topics.length}`;
+    if (header) {
+      const { completed, total } = countSubjectProgress(subject);
+      header.textContent = `${completed}/${total}`;
+    }
+    // Update chapter-level progress counts
+    for (const chapter of subject.chapters) {
+      const chapterProgress = document.querySelector(
+        `.nav-chapter[data-chapter="${subject.id}/${chapter.id}"] .chapter-progress`
+      );
+      if (chapterProgress) {
+        const done = chapter.topics.filter(t =>
+          state.progress[`${subject.id}/${chapter.id}/${t.id}`]
+        ).length;
+        chapterProgress.textContent = `${done}/${chapter.topics.length}`;
+      }
+    }
   }
 }
 
@@ -388,11 +463,15 @@ function setupSearch() {
       const title = item.querySelector('.nav-item-title')?.textContent.toLowerCase() || '';
       item.classList.toggle('hidden', q && !title.includes(q));
     });
-    // Expand sections that have visible items when searching
     if (q) {
+      // Expand sections and chapters that have visible items when searching
       document.querySelectorAll('.nav-section').forEach(section => {
         const hasVisible = section.querySelectorAll('.nav-item:not(.hidden)').length > 0;
         section.classList.toggle('collapsed', !hasVisible);
+      });
+      document.querySelectorAll('.nav-chapter').forEach(chapter => {
+        const hasVisible = chapter.querySelectorAll('.nav-item:not(.hidden)').length > 0;
+        chapter.classList.toggle('collapsed', !hasVisible);
       });
     }
   });
