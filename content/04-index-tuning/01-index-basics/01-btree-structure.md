@@ -10,12 +10,12 @@ B-Tree(Balanced Tree) 인덱스는 Oracle을 포함한 대부분의 RDBMS에서 
 
 ```mermaid
 graph TD
-    A["루트 블록\n(Root Block)"] --> B["브랜치 블록\n(Branch Block)"]
-    A --> C["브랜치 블록\n(Branch Block)"]
-    B --> D["리프 블록\n(Leaf Block)\nROWID + 컬럼값"]
-    B --> E["리프 블록\n(Leaf Block)\nROWID + 컬럼값"]
-    C --> F["리프 블록\n(Leaf Block)\nROWID + 컬럼값"]
-    C --> G["리프 블록\n(Leaf Block)\nROWID + 컬럼값"]
+    A[루트 블록] --> B[브랜치 블록]
+    A --> C[브랜치 블록]
+    B --> D[리프 블록 ROWID+컬럼값]
+    B --> E[리프 블록 ROWID+컬럼값]
+    C --> F[리프 블록 ROWID+컬럼값]
+    C --> G[리프 블록 ROWID+컬럼값]
     D <-->|양방향 링크| E
     E <-->|양방향 링크| F
     F <-->|양방향 링크| G

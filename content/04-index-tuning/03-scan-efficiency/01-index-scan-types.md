@@ -31,9 +31,9 @@ AND    sal >= 2000;
 ```mermaid
 flowchart TD
     A[루트 블록] --> B[브랜치 블록]
-    B --> C[리프 블록 1\nDEPTNO=10, SAL=1500]
-    B --> D[리프 블록 2\nDEPTNO=10, SAL=2000 ✓]
-    B --> E[리프 블록 3\nDEPTNO=10, SAL=3000 ✓]
+    B --> C[리프1: DEPTNO=10 SAL=1500]
+    B --> D[리프2: DEPTNO=10 SAL=2000 ✓]
+    B --> E[리프3: DEPTNO=10 SAL=3000 ✓]
     D --> F[테이블 랜덤 액세스]
     E --> F
 ```
