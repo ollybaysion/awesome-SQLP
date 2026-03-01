@@ -213,6 +213,21 @@
           ]
         },
         {
+          "id": "scan-efficiency",
+          "title": "3. 인덱스 스캔 효율화",
+          "topics": [
+            {
+              "id": "placeholder",
+              "title": "인덱스 스캔 효율화 (준비 중)",
+              "file": "content/04-index-tuning/03-scan-efficiency/01-placeholder.md",
+              "tags": [
+                "인덱스",
+                "스캔효율화"
+              ]
+            }
+          ]
+        },
+        {
           "id": "index-design",
           "title": "4. 인덱스 설계",
           "topics": [
