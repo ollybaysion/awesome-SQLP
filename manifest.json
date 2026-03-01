@@ -326,6 +326,41 @@
               ]
             }
           ]
+        },
+        {
+          "id": "scalar-subquery",
+          "title": "4. 스칼라 서브쿼리",
+          "topics": [
+            {
+              "id": "scalar-subquery",
+              "title": "스칼라 서브쿼리 (Scalar Subquery)",
+              "file": "content/05-join-tuning/04-scalar-subquery/01-scalar-subquery.md",
+              "tags": [
+                "조인",
+                "스칼라서브쿼리",
+                "튜닝",
+                "캐싱"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "advanced-join",
+          "title": "5. 고급 조인 기법",
+          "topics": [
+            {
+              "id": "advanced-join",
+              "title": "고급 조인 기법 (아웃터 조인, 세미 조인, 안티 조인)",
+              "file": "content/05-join-tuning/05-advanced-join/01-advanced-join.md",
+              "tags": [
+                "조인",
+                "아웃터조인",
+                "세미조인",
+                "안티조인",
+                "튜닝"
+              ]
+            }
+          ]
         }
       ]
     }
