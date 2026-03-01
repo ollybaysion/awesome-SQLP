@@ -231,12 +231,47 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 .nav-section-body { padding: 2px 0 6px; }
 
+/* Nav Chapter */
+.nav-chapter { }
+
+.nav-chapter-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px 6px 20px;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: background .15s;
+  text-align: left;
+}
+.nav-chapter-header:hover { background: var(--border-light); color: var(--text); }
+
+.chevron-sm {
+  color: var(--text-light);
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+.nav-chapter.collapsed .chevron-sm { transform: rotate(-90deg); }
+.nav-chapter.collapsed .nav-chapter-body { display: none; }
+
+.chapter-title { flex: 1; }
+.chapter-progress {
+  font-size: .72rem;
+  color: var(--text-light);
+  font-weight: 400;
+  font-family: monospace;
+}
+
+.nav-chapter-body { padding: 1px 0 4px; }
+
 /* Nav Item */
 .nav-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 16px 7px 32px;
+  padding: 7px 16px 7px 40px;
   font-size: .84rem;
   color: var(--text-muted);
   border-left: 3px solid transparent;
