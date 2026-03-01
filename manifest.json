@@ -176,6 +176,28 @@
                 "튜닝",
                 "랜덤액세스"
               ]
+            },
+            {
+              "id": "rowid-table-access",
+              "title": "ROWID 활용 테이블 액세스",
+              "file": "content/04-index-tuning/02-table-access/02-rowid-table-access.md",
+              "tags": [
+                "인덱스",
+                "ROWID",
+                "테이블액세스",
+                "랜덤액세스"
+              ]
+            },
+            {
+              "id": "clustering-factor",
+              "title": "인덱스 클러스터링 팩터와 손익 분기점",
+              "file": "content/04-index-tuning/02-table-access/03-clustering-factor.md",
+              "tags": [
+                "인덱스",
+                "클러스터링팩터",
+                "손익분기점",
+                "튜닝"
+              ]
             }
           ]
         },
