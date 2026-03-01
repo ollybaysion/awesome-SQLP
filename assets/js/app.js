@@ -276,18 +276,7 @@ function renderMarkdown(content, subjectTitle, topicTitle, tags, hash) {
     ? `<div class="topic-tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`
     : '';
 
-  // Render markdown
-  marked.setOptions({
-    highlight: (code, lang) => {
-      if (lang && hljs.getLanguage(lang)) {
-        return hljs.highlight(code, { language: lang }).value;
-      }
-      return hljs.highlightAuto(code).value;
-    },
-    gfm: true,
-    breaks: false,
-  });
-
+  // Render markdown (highlight.js applied below via hljs.highlightElement)
   const html = marked.parse(content);
   document.getElementById('markdownBody').innerHTML = tagsHtml + html;
 
@@ -302,6 +291,14 @@ function updateNavButtons(hash) {
   const idx = state.allTopics.findIndex(t => t.hash === hash);
   const btnPrev = document.getElementById('btnPrev');
   const btnNext = document.getElementById('btnNext');
+
+  if (idx === -1) {
+    btnPrev.disabled = true;
+    btnPrev.textContent = '← 이전';
+    btnNext.disabled = true;
+    btnNext.textContent = '다음 →';
+    return;
+  }
 
   if (idx > 0) {
     btnPrev.disabled = false;
