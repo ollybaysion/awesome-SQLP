@@ -157,8 +157,8 @@
               "file": "content/04-index-tuning/01-index-basics/05-index-scan-types.md",
               "tags": [
                 "인덱스",
-                "스캔방식",
-                "기본원리"
+                "튜닝",
+                "스캔방식"
               ]
             }
           ]
