@@ -9,16 +9,63 @@ tags: [인덱스, B-Tree, 기본원리]
 B-Tree(Balanced Tree) 인덱스는 Oracle을 포함한 대부분의 RDBMS에서 기본으로 사용하는 인덱스 구조다.
 
 ```mermaid
-graph TD
-    A[루트 블록] --> B[브랜치 블록]
-    A --> C[브랜치 블록]
-    B --> D[리프 블록 ROWID+컬럼값]
-    B --> E[리프 블록 ROWID+컬럼값]
-    C --> F[리프 블록 ROWID+컬럼값]
-    C --> G[리프 블록 ROWID+컬럼값]
-    D <-->|양방향 링크| E
-    E <-->|양방향 링크| F
-    F <-->|양방향 링크| G
+classDiagram
+    class 루트블록 {
+        <<Root Block>>
+        키범위: A ~ Z
+        브랜치포인터1: A~M → Branch1
+        브랜치포인터2: N~Z → Branch2
+    }
+    class 브랜치블록1 {
+        <<Branch Block>>
+        키범위: A ~ M
+        리프포인터1: A~F → Leaf1
+        리프포인터2: G~M → Leaf2
+    }
+    class 브랜치블록2 {
+        <<Branch Block>>
+        키범위: N ~ Z
+        리프포인터3: N~S → Leaf3
+        리프포인터4: T~Z → Leaf4
+    }
+    class 리프블록1 {
+        <<Leaf Block>>
+        인덱스키: A, B, C, D, E, F
+        ROWID: AAA...001 ~ AAA...006
+        prev: NULL
+        next: → Leaf2
+    }
+    class 리프블록2 {
+        <<Leaf Block>>
+        인덱스키: G, H, I, J, K, L, M
+        ROWID: AAA...007 ~ AAA...013
+        prev: ← Leaf1
+        next: → Leaf3
+    }
+    class 리프블록3 {
+        <<Leaf Block>>
+        인덱스키: N, O, P, Q, R, S
+        ROWID: AAA...014 ~ AAA...019
+        prev: ← Leaf2
+        next: → Leaf4
+    }
+    class 리프블록4 {
+        <<Leaf Block>>
+        인덱스키: T, U, V, W, X, Y, Z
+        ROWID: AAA...020 ~ AAA...026
+        prev: ← Leaf3
+        next: NULL
+    }
+
+    루트블록 --> 브랜치블록1
+    루트블록 --> 브랜치블록2
+    브랜치블록1 --> 리프블록1
+    브랜치블록1 --> 리프블록2
+    브랜치블록2 --> 리프블록3
+    브랜치블록2 --> 리프블록4
+    리프블록1 --> 리프블록2 : 양방향 링크
+    리프블록2 --> 리프블록3 : 양방향 링크
+    리프블록3 --> 리프블록4 : 양방향 링크
 ```
 
 | 구성 요소 | 역할 |
