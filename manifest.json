@@ -363,6 +363,68 @@
           ]
         }
       ]
+    },
+    {
+      "id": "sql-optimizer",
+      "title": "3-5과목: SQL 옵티마이저",
+      "color": "#06b6d4",
+      "chapters": [
+        {
+          "id": "optimizing-principle",
+          "title": "1. SQL 옵티마이징 원리",
+          "topics": [
+            {
+              "id": "optimizing-principle",
+              "title": "SQL 옵티마이징 원리",
+              "file": "content/06-sql-optimizer/01-optimizing-principle/01-optimizing-principle.md",
+              "tags": [
+                "옵티마이저",
+                "실행계획",
+                "통계정보",
+                "비용기반",
+                "규칙기반"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sql-sharing",
+          "title": "2. SQL 공유 및 재사용",
+          "topics": [
+            {
+              "id": "sql-sharing",
+              "title": "SQL 공유 및 재사용",
+              "file": "content/06-sql-optimizer/02-sql-sharing/01-sql-sharing.md",
+              "tags": [
+                "옵티마이저",
+                "Library Cache",
+                "커서공유",
+                "바인드변수",
+                "SoftParse",
+                "HardParse"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "query-transformation",
+          "title": "3. 쿼리 변환",
+          "topics": [
+            {
+              "id": "query-transformation",
+              "title": "쿼리 변환 (Query Transformation)",
+              "file": "content/06-sql-optimizer/03-query-transformation/01-query-transformation.md",
+              "tags": [
+                "옵티마이저",
+                "쿼리변환",
+                "Unnesting",
+                "뷰Merging",
+                "조건절Pushing"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
