@@ -112,6 +112,7 @@
                 "튜닝",
                 "SQL Trace",
                 "TKProf",
+                "실행계획",
                 "Row Source Operation"
               ]
             }
