@@ -425,6 +425,68 @@
           ]
         }
       ]
+    },
+    {
+      "id": "advanced-sql-tuning",
+      "title": "3-6과목: 고급 SQL 튜닝",
+      "color": "#f97316",
+      "chapters": [
+        {
+          "id": "sort-tuning",
+          "title": "1. 소트 튜닝",
+          "topics": [
+            {
+              "id": "sort-tuning",
+              "title": "소트 튜닝",
+              "file": "content/07-advanced-sql-tuning/01-sort-tuning/01-sort-tuning.md",
+              "tags": [
+                "튜닝",
+                "소트",
+                "Sort Area",
+                "PGA",
+                "소트회피"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dml-tuning",
+          "title": "2. DML 튜닝",
+          "topics": [
+            {
+              "id": "dml-tuning",
+              "title": "DML 튜닝",
+              "file": "content/07-advanced-sql-tuning/02-dml-tuning/01-dml-tuning.md",
+              "tags": [
+                "튜닝",
+                "DML",
+                "INSERT",
+                "UPDATE",
+                "DELETE",
+                "DirectPathWrite"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "db-call-minimization",
+          "title": "3. 데이터베이스 Call 최소화",
+          "topics": [
+            {
+              "id": "db-call-minimization",
+              "title": "데이터베이스 Call 최소화",
+              "file": "content/07-advanced-sql-tuning/03-db-call-minimization/01-db-call-minimization.md",
+              "tags": [
+                "튜닝",
+                "DB Call",
+                "네트워크",
+                "ArrayProcessing",
+                "부분범위처리"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
