@@ -108,38 +108,56 @@
       "color": "#ef4444",
       "chapters": [
         {
-          "id": "basics",
-          "title": "인덱스 튜닝 기초",
+          "id": "index-basics",
+          "title": "1. 인덱스 기본 원리",
+          "topics": [
+            {
+              "id": "btree-structure",
+              "title": "B-Tree 인덱스 구조",
+              "file": "content/04-index-tuning/01-index-basics/01-btree-structure.md",
+              "tags": ["인덱스", "B-Tree", "기본원리"]
+            },
+            {
+              "id": "index-operations",
+              "title": "인덱스 기본 사용법과 DML 부하",
+              "file": "content/04-index-tuning/01-index-basics/02-index-operations.md",
+              "tags": ["인덱스", "DML", "기본원리"]
+            }
+          ]
+        },
+        {
+          "id": "table-access",
+          "title": "2. 테이블 액세스 최소화",
+          "topics": [
+            {
+              "id": "random-access-reduction",
+              "title": "테이블 랜덤 액세스 줄이기",
+              "file": "content/04-index-tuning/02-table-access/01-random-access-reduction.md",
+              "tags": ["인덱스", "튜닝", "랜덤액세스"]
+            }
+          ]
+        },
+        {
+          "id": "scan-efficiency",
+          "title": "3. 인덱스 스캔 효율화",
           "topics": [
             {
               "id": "index-scan-types",
               "title": "인덱스 스캔 방식",
-              "file": "content/04-index-tuning/01-basics/01-index-scan-types.md",
-              "tags": [
-                "인덱스",
-                "튜닝",
-                "스캔방식"
-              ]
-            },
+              "file": "content/04-index-tuning/03-scan-efficiency/01-index-scan-types.md",
+              "tags": ["인덱스", "튜닝", "스캔방식"]
+            }
+          ]
+        },
+        {
+          "id": "index-design",
+          "title": "4. 인덱스 설계",
+          "topics": [
             {
-              "id": "index-design",
+              "id": "index-design-principles",
               "title": "인덱스 설계 원칙",
-              "file": "content/04-index-tuning/01-basics/02-index-design.md",
-              "tags": [
-                "인덱스",
-                "튜닝",
-                "설계"
-              ]
-            },
-            {
-              "id": "random-access-reduction",
-              "title": "테이블 랜덤 액세스 줄이기",
-              "file": "content/04-index-tuning/01-basics/03-random-access-reduction.md",
-              "tags": [
-                "인덱스",
-                "튜닝",
-                "랜덤액세스"
-              ]
+              "file": "content/04-index-tuning/04-index-design/01-index-design-principles.md",
+              "tags": ["인덱스", "튜닝", "설계"]
             }
           ]
         }
