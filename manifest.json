@@ -99,6 +99,23 @@
               ]
             }
           ]
+        },
+        {
+          "id": "sql-trace",
+          "title": "SQL Trace와 실행 계획 분석",
+          "topics": [
+            {
+              "id": "sql-trace-tkprof",
+              "title": "SQL Trace와 TKProf - Row Source Operation 분석",
+              "file": "content/03-sql-advanced/02-sql-trace/01-sql-trace-tkprof.md",
+              "tags": [
+                "튜닝",
+                "SQL Trace",
+                "TKProf",
+                "Row Source Operation"
+              ]
+            }
+          ]
         }
       ]
     },
