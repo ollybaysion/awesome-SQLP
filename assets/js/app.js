@@ -328,14 +328,17 @@ function parseTags(tagStr) {
 // ── Markdown render ────────────────────────────────────
 
 // Custom marked renderer: mermaid 블록 소스를 data attribute에 인코딩하여 보존
-const mermaidRenderer = new marked.Renderer();
-mermaidRenderer.code = function(code, language) {
-  if (language === 'mermaid') {
-    return `<div class="mermaid-source" data-src="${encodeURIComponent(code)}"></div>`;
+// marked.js v9+: code renderer는 { text, lang } 객체를 받음
+marked.use({
+  renderer: {
+    code({ text, lang }) {
+      if (lang === 'mermaid') {
+        return `<div class="mermaid-source" data-src="${encodeURIComponent(text)}"></div>`;
+      }
+      return false; // 나머지는 기본 렌더러 사용
+    }
   }
-  return false; // 나머지는 기본 렌더러 사용
-};
-marked.use({ renderer: mermaidRenderer });
+});
 
 function renderMarkdown(content, subjectTitle, topicTitle, tags, hash) {
   // Breadcrumb
