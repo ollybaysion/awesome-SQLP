@@ -340,10 +340,43 @@ function renderMarkdown(content, subjectTitle, topicTitle, tags, hash) {
   const html = marked.parse(content);
   document.getElementById('markdownBody').innerHTML = tagsHtml + html;
 
-  // Apply highlight.js to code blocks
-  document.querySelectorAll('.markdown-body pre code').forEach(block => {
+  // Apply highlight.js to non-mermaid code blocks
+  document.querySelectorAll('.markdown-body pre code:not(.language-mermaid)').forEach(block => {
     hljs.highlightElement(block);
   });
+
+  // Render mermaid diagrams
+  renderMermaid();
+}
+
+async function renderMermaid() {
+  const blocks = document.querySelectorAll('.markdown-body pre code.language-mermaid');
+  if (!blocks.length) return;
+
+  // mermaid may load asynchronously via ESM module
+  const getMermaid = () => new Promise(resolve => {
+    if (window.mermaid) { resolve(window.mermaid); return; }
+    const check = setInterval(() => {
+      if (window.mermaid) { clearInterval(check); resolve(window.mermaid); }
+    }, 50);
+  });
+
+  const m = await getMermaid();
+
+  for (const block of blocks) {
+    const pre = block.parentElement;
+    const code = block.textContent;
+    const id = 'mermaid-' + Math.random().toString(36).slice(2);
+    try {
+      const { svg } = await m.render(id, code);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'mermaid-diagram';
+      wrapper.innerHTML = svg;
+      pre.replaceWith(wrapper);
+    } catch (e) {
+      console.warn('Mermaid render error:', e);
+    }
+  }
 }
 
 // ── Prev / Next navigation ─────────────────────────────
