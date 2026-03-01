@@ -99,27 +99,34 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "index-tuning",
+      "title": "3-3과목: 인덱스 튜닝",
+      "color": "#ef4444",
+      "chapters": [
         {
-          "id": "index-tuning",
-          "title": "인덱스 튜닝",
+          "id": "basics",
+          "title": "인덱스 튜닝 기초",
           "topics": [
             {
               "id": "index-scan-types",
               "title": "인덱스 스캔 방식",
-              "file": "content/03-sql-advanced/03-index-tuning/01-index-scan-types.md",
+              "file": "content/04-index-tuning/01-basics/01-index-scan-types.md",
               "tags": ["인덱스", "튜닝", "스캔방식"]
             },
             {
               "id": "index-design",
               "title": "인덱스 설계 원칙",
-              "file": "content/03-sql-advanced/03-index-tuning/02-index-design.md",
+              "file": "content/04-index-tuning/01-basics/02-index-design.md",
               "tags": ["인덱스", "튜닝", "설계"]
             },
             {
               "id": "random-access-reduction",
               "title": "테이블 랜덤 액세스 줄이기",
-              "file": "content/03-sql-advanced/03-index-tuning/03-random-access-reduction.md",
+              "file": "content/04-index-tuning/01-basics/03-random-access-reduction.md",
               "tags": ["인덱스", "튜닝", "랜덤액세스"]
             }
           ]
