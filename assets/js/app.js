@@ -197,6 +197,10 @@ async function loadContent(hash) {
   if (subjectId === 'exam') {
     filePath = `content/exam/${topicId}.md`;
     topicTitle = topicId === 'overview' ? '시험 개요' : '채점 기준';
+  } else if (subjectId === 'guide') {
+    filePath = `content/guide/${topicId}.md`;
+    subjectTitle = '가이드';
+    topicTitle = '토픽 추가 가이드';
   } else if (state.manifest) {
     const subject = state.manifest.subjects.find(s => s.id === subjectId);
     if (subject) {

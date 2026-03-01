@@ -22,7 +22,7 @@
           <rect y="15" width="20" height="2" rx="1"/>
         </svg>
       </button>
-      <span class="header-title">SQLP 학습 대시보드</span>
+      <a class="header-title" href="#" title="홈으로">SQLP 학습 대시보드</a>
     </div>
     <div class="header-center">
       <div class="progress-bar-wrap" title="전체 학습 진도">
@@ -46,6 +46,14 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <nav class="nav" id="sidebarNav">
+        <!-- 가이드 링크 -->
+        <div class="nav-pinned">
+          <a class="nav-item" href="#guide/how-to-add" data-hash="guide/how-to-add">
+            <span class="nav-item-icon">📖</span>
+            <span class="nav-item-title">토픽 추가 가이드</span>
+          </a>
+        </div>
+
         <!-- 시험 정보 섹션 -->
         <div class="nav-section" data-section="exam">
           <button class="nav-section-header" onclick="toggleSection('exam')">

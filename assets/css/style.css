@@ -76,7 +76,11 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   font-weight: 600;
   letter-spacing: -.01em;
   white-space: nowrap;
+  color: var(--header-text);
+  text-decoration: none;
+  transition: opacity .15s;
 }
+.header-title:hover { opacity: .8; }
 
 .header-center {
   flex: 1;
@@ -169,6 +173,21 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 .nav { padding: 8px 0 24px; }
+
+/* Pinned guide link */
+.nav-pinned {
+  padding: 8px 8px 4px;
+  border-bottom: 1px solid var(--border-light);
+}
+.nav-pinned .nav-item {
+  padding-left: 12px;
+  border-radius: var(--radius-sm);
+  border-left: none;
+  color: var(--text-muted);
+  font-size: .84rem;
+}
+.nav-pinned .nav-item:hover { background: var(--border-light); color: var(--text); }
+.nav-pinned .nav-item.active { background: var(--primary-light); color: var(--primary); }
 
 /* Nav Section */
 .nav-section { border-bottom: 1px solid var(--border-light); }
