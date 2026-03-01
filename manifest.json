@@ -180,11 +180,6 @@
           ]
         },
         {
-          "id": "scan-efficiency",
-          "title": "3. 인덱스 스캔 효율화",
-          "topics": []
-        },
-        {
           "id": "index-design",
           "title": "4. 인덱스 설계",
           "topics": [
