@@ -573,6 +573,17 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   margin: 24px 0;
 }
 
+/* Mermaid diagrams */
+.mermaid-diagram {
+  margin: 16px 0;
+  text-align: center;
+  overflow-x: auto;
+}
+.mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Tags */
 .topic-tags {
   display: flex;
