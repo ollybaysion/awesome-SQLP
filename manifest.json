@@ -229,6 +229,61 @@
           ]
         }
       ]
+    },
+    {
+      "id": "join-tuning",
+      "title": "3-4과목: 조인 튜닝",
+      "color": "#8b5cf6",
+      "chapters": [
+        {
+          "id": "nl-join",
+          "title": "1. NL 조인",
+          "topics": [
+            {
+              "id": "nl-join-basics",
+              "title": "NL 조인 (Nested Loop Join)",
+              "file": "content/05-join-tuning/01-nl-join/01-nl-join-basics.md",
+              "tags": [
+                "조인",
+                "NL조인",
+                "튜닝"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sort-merge-join",
+          "title": "2. 소트 머지 조인",
+          "topics": [
+            {
+              "id": "sort-merge-join-basics",
+              "title": "소트 머지 조인 (Sort Merge Join)",
+              "file": "content/05-join-tuning/02-sort-merge-join/01-sort-merge-join-basics.md",
+              "tags": [
+                "조인",
+                "소트머지조인",
+                "튜닝"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hash-join",
+          "title": "3. 해시 조인",
+          "topics": [
+            {
+              "id": "hash-join-basics",
+              "title": "해시 조인 (Hash Join)",
+              "file": "content/05-join-tuning/03-hash-join/01-hash-join-basics.md",
+              "tags": [
+                "조인",
+                "해시조인",
+                "튜닝"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
