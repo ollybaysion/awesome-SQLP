@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQLP 학습 대시보드</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 토글">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <rect y="3" width="20" height="2" rx="1"/>
+          <rect y="9" width="20" height="2" rx="1"/>
+          <rect y="15" width="20" height="2" rx="1"/>
+        </svg>
+      </button>
+      <span class="header-title">SQLP 학습 대시보드</span>
+    </div>
+    <div class="header-center">
+      <div class="progress-bar-wrap" title="전체 학습 진도">
+        <div class="progress-bar-inner" id="globalProgressBar"></div>
+      </div>
+      <span class="progress-label" id="globalProgressLabel">0%</span>
+    </div>
+    <div class="header-right">
+      <div class="search-wrap">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/>
+        </svg>
+        <input type="text" class="search-input" id="searchInput" placeholder="토픽 검색...">
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout -->
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <nav class="nav" id="sidebarNav">
+        <!-- 시험 정보 섹션 -->
+        <div class="nav-section" data-section="exam">
+          <button class="nav-section-header" onclick="toggleSection('exam')">
+            <span class="subject-dot" style="background:#8b5cf6"></span>
+            <span class="section-title">시험 정보</span>
+            <svg class="chevron" width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+            </svg>
+          </button>
+          <div class="nav-section-body" id="section-body-exam">
+            <a class="nav-item" href="#exam/overview" data-hash="exam/overview">
+              <span class="nav-item-icon">📋</span>
+              <span class="nav-item-title">시험 개요</span>
+            </a>
+            <a class="nav-item" href="#exam/grading" data-hash="exam/grading">
+              <span class="nav-item-icon">📊</span>
+              <span class="nav-item-title">채점 기준</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 동적 과목 섹션 -->
+        <div id="subjectNav"></div>
+      </nav>
+    </aside>
+
+    <!-- Content -->
+    <main class="content-area" id="contentArea">
+
+      <!-- 홈 화면 -->
+      <div id="homeScreen" class="home-screen">
+        <div class="home-hero">
+          <div class="home-badge">SQL Professional</div>
+          <h1 class="home-title">SQLP 학습 대시보드</h1>
+          <p class="home-desc">좌측 사이드바에서 학습할 주제를 선택하거나, 아래 과목 카드를 클릭하세요.</p>
+        </div>
+        <div class="home-stats" id="homeStats"></div>
+        <div class="home-cards" id="homeCards"></div>
+      </div>
+
+      <!-- 마크다운 콘텐츠 -->
+      <div id="markdownView" class="markdown-view hidden">
+        <div class="content-header">
+          <div class="breadcrumb" id="breadcrumb"></div>
+          <div class="content-actions">
+            <button class="btn-complete" id="btnComplete" onclick="toggleComplete()">
+              학습 완료 체크
+            </button>
+          </div>
+        </div>
+        <article class="markdown-body" id="markdownBody"></article>
+        <div class="content-nav">
+          <button class="btn-nav" id="btnPrev" onclick="navigateTopic(-1)">← 이전</button>
+          <button class="btn-nav" id="btnNext" onclick="navigateTopic(1)">다음 →</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay hidden" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
