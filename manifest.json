@@ -486,6 +486,62 @@
               ]
             }
           ]
+        },
+        {
+          "id": "partitioning",
+          "title": "4. 파티셔닝",
+          "topics": [
+            {
+              "id": "partitioning",
+              "title": "파티셔닝 (Partitioning)",
+              "file": "content/07-advanced-sql-tuning/04-partitioning/01-partitioning.md",
+              "tags": [
+                "튜닝",
+                "파티셔닝",
+                "PartitionPruning",
+                "파티션인덱스",
+                "대용량"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "batch-tuning",
+          "title": "5. 대용량 배치 프로그램 튜닝",
+          "topics": [
+            {
+              "id": "batch-tuning",
+              "title": "대용량 배치 프로그램 튜닝",
+              "file": "content/07-advanced-sql-tuning/05-batch-tuning/01-batch-tuning.md",
+              "tags": [
+                "튜닝",
+                "배치",
+                "병렬처리",
+                "파티션",
+                "체크포인트",
+                "대용량"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "advanced-sql",
+          "title": "6. 고급 SQL 활용",
+          "topics": [
+            {
+              "id": "advanced-sql",
+              "title": "고급 SQL 활용",
+              "file": "content/07-advanced-sql-tuning/06-advanced-sql/01-advanced-sql.md",
+              "tags": [
+                "튜닝",
+                "윈도우함수",
+                "계층쿼리",
+                "PIVOT",
+                "분석함수",
+                "고급SQL"
+              ]
+            }
+          ]
         }
       ]
     }
