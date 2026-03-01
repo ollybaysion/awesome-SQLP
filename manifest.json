@@ -198,6 +198,17 @@
                 "손익분기점",
                 "튜닝"
               ]
+            },
+            {
+              "id": "iot",
+              "title": "IOT (Index-Organized Table)",
+              "file": "content/04-index-tuning/02-table-access/04-iot.md",
+              "tags": [
+                "인덱스",
+                "IOT",
+                "테이블액세스",
+                "튜닝"
+              ]
             }
           ]
         },
